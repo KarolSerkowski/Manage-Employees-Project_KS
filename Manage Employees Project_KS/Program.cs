@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Manage_Employees_Project_KS;
+using Finances;
 
 namespace Manage_Employees_Project_KS 
 {
@@ -170,7 +172,9 @@ namespace Manage_Employees_Project_KS
                     czlowieczek.getSalary();
                     czlowieczek.setSalary(5000, 250, 200);
                     czlowieczek.getSalary();
-                    Console.WriteLine("Nowa wartość premi świątecznej to " + czlowieczek.getHolidayBonus());                  
+                    Console.WriteLine("Nowa wartość premi świątecznej to " + czlowieczek.getHolidayBonus());
+                    Company firma = new Company("Firemka");
+                    firma.dispalyComapnyName();
 
                     Console.ReadLine();
 

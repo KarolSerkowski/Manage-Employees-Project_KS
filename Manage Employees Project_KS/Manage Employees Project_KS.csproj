@@ -50,6 +50,13 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Company">
+      <HintPath>..\Company\bin\Debug\Company.dll</HintPath>
+    </Reference>
+    <Reference Include="Manage Employees Project_KS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Manage Employees Project_KS.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

@@ -1,0 +1,6 @@
+C:\Users\Karol\source\repos\Manage Employees Project_KS\Company\bin\Debug\Company.dll
+C:\Users\Karol\source\repos\Manage Employees Project_KS\Company\bin\Debug\Company.pdb
+C:\Users\Karol\source\repos\Manage Employees Project_KS\Company\obj\Debug\Company.csproj.CoreCompileInputs.cache
+C:\Users\Karol\source\repos\Manage Employees Project_KS\Company\obj\Debug\Company.dll
+C:\Users\Karol\source\repos\Manage Employees Project_KS\Company\obj\Debug\Company.pdb
+C:\Users\Karol\source\repos\Manage Employees Project_KS\Company\obj\Debug\Company.csprojAssemblyReference.cache
