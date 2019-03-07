@@ -45,8 +45,7 @@ namespace Manage_Employees_Project_KS
                 public Wage salary;              
 
                 public decimal getSalary()
-                {
-                    //displaySecurityMessage tryLogin = new displaySecurityMessage();
+                {                  
                     Authorization authorization = new Authorization();
 
                     if (authorization.checkAuthorization() == true)
@@ -63,12 +62,7 @@ namespace Manage_Employees_Project_KS
                 }
 
                 public void setSalary(decimal basic, decimal bonus, decimal other)
-                {
-                    //salary.basic = basic;
-                    //salary.bonus = bonus;
-                    //salary.other = other;
-
-                    //displaySecurityMessage tryLogin = new displaySecurityMessage();
+                {                    
                     Authorization authorization = new Authorization();
 
                     if (authorization.checkAuthorization()== true)
@@ -224,11 +218,6 @@ namespace Manage_Employees_Project_KS
                         password = tryLogin.getPassword();
                     }                      
                     
-                    
-
-                    //this.login = login;
-                    //this.password = password;
-                    //Console.WriteLine(isLogged);
                 }
 
                 public bool checkAuthorization()
