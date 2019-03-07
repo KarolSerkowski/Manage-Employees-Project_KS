@@ -40,7 +40,23 @@ namespace Manage_Employees_Project_KS
             class Employee : Person
             {
                 public string Ocupation { get; set; }
-                public Wage salary { get; set; }
+                public Wage salary;              
+
+                public decimal getSalary()
+                {
+                    Console.WriteLine("Pensja podstawowa wynosi: {0}, aktualne premie: {1}, inne dodatki do pensji: {2}\nSuma zarobków wynosi: {3}", salary.basic, salary.bonus, salary.other, salary.getSumWages());
+                    return salary.getSumWages();
+                }
+
+                public void setSalary(decimal basic, decimal bonus, decimal other)
+                {
+                    salary.basic = basic;
+                    salary.bonus = bonus;
+                    salary.other = other;
+                }
+                
+
+
                 public static decimal HolidayBonus { get; set; } = 1000;
                 public ContractTypes contractType { get; set; }
 
@@ -110,7 +126,7 @@ namespace Manage_Employees_Project_KS
                     public decimal bonus { get; set; }
                     public decimal other { get; set; }
 
-                    public Wage(decimal basic, decimal bonus, decimal other = 0)
+                    public Wage(decimal basic = 0, decimal bonus =0, decimal other = 0)
                     {
                         this.basic = basic;
                         this.bonus = bonus;
@@ -151,6 +167,9 @@ namespace Manage_Employees_Project_KS
                     czlowieczek.setName("Wacław");             
                     czlowieczek.FullListOperations();
                     czlowieczek.setHolidayBonus(2000);
+                    czlowieczek.getSalary();
+                    czlowieczek.setSalary(5000, 250, 200);
+                    czlowieczek.getSalary();
                     Console.WriteLine("Nowa wartość premi świątecznej to " + czlowieczek.getHolidayBonus());                  
 
                     Console.ReadLine();
