@@ -16,7 +16,7 @@ namespace Finances
 
         public void dispalyComapnyName()
         {
-            Console.WriteLine("Nazwa firmy to: " + this.name);
+            Console.WriteLine("Nazwa firmy to: " + name);
         }
     }
 }

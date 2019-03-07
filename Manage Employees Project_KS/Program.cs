@@ -46,15 +46,44 @@ namespace Manage_Employees_Project_KS
 
                 public decimal getSalary()
                 {
-                    Console.WriteLine("Pensja podstawowa wynosi: {0}, aktualne premie: {1}, inne dodatki do pensji: {2}\nSuma zarobków wynosi: {3}", salary.basic, salary.bonus, salary.other, salary.getSumWages());
-                    return salary.getSumWages();
+                    //displaySecurityMessage tryLogin = new displaySecurityMessage();
+                    Authorization authorization = new Authorization();
+
+                    if (authorization.checkAuthorization() == true)
+                    {
+                        Console.WriteLine("Logowanie poprawne.\n###############################################################################\n");
+                        Console.WriteLine("Pensja podstawowa wynosi: {0}, aktualne premie: {1}, inne dodatki do pensji: {2}\nSuma zarobków wynosi: {3}", salary.basic, salary.bonus, salary.other, salary.getSumWages());
+                        return salary.getSumWages();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Błędne logowanie");
+                        return 0;
+                    }                    
                 }
 
                 public void setSalary(decimal basic, decimal bonus, decimal other)
                 {
-                    salary.basic = basic;
-                    salary.bonus = bonus;
-                    salary.other = other;
+                    //salary.basic = basic;
+                    //salary.bonus = bonus;
+                    //salary.other = other;
+
+                    //displaySecurityMessage tryLogin = new displaySecurityMessage();
+                    Authorization authorization = new Authorization();
+
+                    if (authorization.checkAuthorization()== true)
+                    {
+                        Console.WriteLine("Logowanie poprawne.\n###############################################################################\n");
+                        salary.basic = basic;
+                        salary.bonus = bonus;
+                        salary.other = other;
+
+                        Console.WriteLine("Wprowadzono wartości:\nPensja podstawowa: {0}\nPremie: {1}\nInne: {2}", salary.basic, salary.bonus, salary.other);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Błędne logowanie");                        
+                    }
                 }
                 
 
@@ -156,6 +185,71 @@ namespace Manage_Employees_Project_KS
                 }
             }
 
+            class displaySecurityMessage
+            {
+                private string login;
+                private string password;
+
+                public displaySecurityMessage()
+                {                   
+                    Console.WriteLine("Aby wyświetlić informacje o zarobkach lub dokonać zmian w wartościach wypłaty zaloguj się:\n Wprowadź login:");
+                    login = Console.ReadLine();
+                    Console.WriteLine("wporwadź hasło:");
+                    password = Console.ReadLine();
+
+                }
+
+                public string getLogin()
+                {
+                    return login;
+                }
+
+                public string getPassword()
+                {
+                    return password;
+                }
+            }
+
+            class Authorization
+            {
+                private string password;
+                private string login;
+                private static bool isLogged = false;
+                public Authorization()
+                {
+                    if(isLogged != true)
+                    {
+                        displaySecurityMessage tryLogin = new displaySecurityMessage();
+                        login = tryLogin.getLogin();
+                        password = tryLogin.getPassword();
+                    }                      
+                    
+                    
+
+                    //this.login = login;
+                    //this.password = password;
+                    //Console.WriteLine(isLogged);
+                }
+
+                public bool checkAuthorization()
+                {
+                    if (this.login == "admin" && this.password == "admin"|| isLogged == true)
+                    {
+                        isLogged = true;
+                        return true;
+                    }
+                      
+                    else
+                    return false;
+                }
+
+                public void logout()
+                {
+                    isLogged = false;
+                    Console.WriteLine("Nastąpiło wylogowanie");
+                }
+            }
+
             class Program
             {
                 static void Main(string[] args)
@@ -172,6 +266,7 @@ namespace Manage_Employees_Project_KS
                     czlowieczek.getSalary();
                     czlowieczek.setSalary(5000, 250, 200);
                     czlowieczek.getSalary();
+                    
                     Console.WriteLine("Nowa wartość premi świątecznej to " + czlowieczek.getHolidayBonus());
                     Company firma = new Company("Firemka");
                     firma.dispalyComapnyName();
