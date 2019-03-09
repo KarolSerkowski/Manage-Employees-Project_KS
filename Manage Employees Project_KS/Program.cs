@@ -42,7 +42,13 @@ namespace Manage_Employees_Project_KS
             class Employee : Person
             {
                 public string Ocupation { get; set; }
-                public Wage salary;              
+                public Wage salary;
+
+                public Employee(string name, string surname, string position) : base(name, surname)
+                {
+                    this.Ocupation = position;
+
+                }
 
                 public decimal getSalary()
                 {                  
@@ -94,13 +100,7 @@ namespace Manage_Employees_Project_KS
                 {
                     return HolidayBonus;
                 }
-
-                public Employee(string name, string surname, string position) : base(name, surname)
-                {
-                    this.Ocupation = position;
-
-                }
-
+            
                 public void DisplayEmployeeInfo()
                 {
                     Console.WriteLine("Dane prawcownika \n Imię i nazwisko:{0}\n Zatrudniony na umowę: {1}\n Wynagrodzenie: {2}", this.GetFullName(), this.getContractName(contractType), this.salary.getSumWages());
@@ -239,11 +239,63 @@ namespace Manage_Employees_Project_KS
                 }
             }
 
+
+            class Client : Person
+            {
+                private int phoneNumber { get; set; }
+
+                public Client(string name, string surname, int phoneNumber) : base(name, surname)
+                {
+                    this.phoneNumber = phoneNumber;
+                }
+            }
+
+            class Manager : Employee
+            {
+                public  string department{get; set;}
+                public Manager(string name, string surname, string ocupation, string department) : base(name, surname, ocupation)
+                {
+                    this.department = department;
+                }
+            }
+
+            class EmployeesList
+            {
+                public List<Employee> allEmployees = new List<Employee>();
+                
+                public void addToList(Employee newEmployee)
+                {
+                    allEmployees.Add(newEmployee);
+                   
+                }
+
+                public void printList()
+                {
+                    Console.WriteLine("Pełna lista pracowników:\n################################################\n");
+                    foreach (Employee employee in allEmployees)
+                    {                        
+                        Console.WriteLine("Imię i nazwisko pracownika: " + employee.GetFullName() );
+                    }
+                    Console.WriteLine(" ");
+                }
+            }
+
             class Program
             {
                 static void Main(string[] args)
                 {
+                    EmployeesList ListaPracownikow = new EmployeesList();
                     Employee czlowieczek = new Employee("Johny", "Okoń", "Tynkarz - akrobata");
+                    Employee czlowieczek2 = new Employee("Jacek", "Kapeć", "Informatyk");
+                    Employee czlowieczek3 = new Employee("Władysław", "Kleszcz", "Elektronik");
+                    Employee czlowieczek4 = new Employee("Jadwiga", "Wolna", "Księgowa");
+
+                    ListaPracownikow.addToList(czlowieczek);
+                    ListaPracownikow.addToList(czlowieczek2);
+                    ListaPracownikow.addToList(czlowieczek3);
+                    ListaPracownikow.addToList(czlowieczek4);
+
+                    ListaPracownikow.printList();
                     czlowieczek.contractType = Employee.ContractTypes.fullTime;
                     czlowieczek.salary = new Employee.Wage(3000, 250, 0);
                     czlowieczek.Operations.Add(new Operation("Wypłata 01/2019", "Płatność", czlowieczek.salary.getSumWages()));
