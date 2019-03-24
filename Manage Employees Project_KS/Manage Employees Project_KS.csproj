@@ -67,6 +67,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authorization.cs" />
+    <Compile Include="displaySecurityMessage.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="EmployeesList.cs" />
+    <Compile Include="Operation.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
