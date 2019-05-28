@@ -8,4 +8,4 @@ C:\Users\Karol\source\repos\Manage Employees Project_KS\Manage Employees Project
 C:\Users\Karol\source\repos\Manage Employees Project_KS\Manage Employees Project_KS\obj\Debug\Manage Employees Project_KS.exe
 C:\Users\Karol\source\repos\Manage Employees Project_KS\Manage Employees Project_KS\bin\Debug\Company.dll
 C:\Users\Karol\source\repos\Manage Employees Project_KS\Manage Employees Project_KS\bin\Debug\Company.pdb
-C:\Users\Karol\source\repos\Manage Employees Project_KS\Manage Employees Project_KS\obj\Debug\Manage Employees Project_KS.csprojResolveAssemblyReference.cache
+C:\Users\Karol\source\repos\Manage Employees Project_KS\Manage Employees Project_KS\obj\Debug\Manage Employees Project_KS.csprojAssemblyReference.cache

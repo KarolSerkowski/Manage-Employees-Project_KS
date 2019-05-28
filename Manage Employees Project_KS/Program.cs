@@ -65,6 +65,13 @@ namespace Manage_Employees_Project_KS
                     Company firma = new Company("Firemka");
                     firma.dispalyComapnyName();
 
+                    //factory method
+                    Employee nowyPracownik = Employee.createNewEmployee("Edek Paskudny", "Kierownik", 3000);
+                    ListaPracownikow.addToList(nowyPracownik);
+                    nowyPracownik.DisplayEmployeeInfo();
+                    ListaPracownikow.createEmployeeAndAddToList("Franek Piątkiewicz", "Product Owner", 8000);
+                    ListaPracownikow.printList();
+
                     Console.ReadLine();
 
 

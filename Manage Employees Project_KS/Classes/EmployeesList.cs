@@ -17,6 +17,13 @@ namespace Manage_Employees_Project_KS
                    
                 }
 
+                public Employee createEmployeeAndAddToList(string fullName, string position, decimal baseWage)
+                {
+                    Employee employee = Employee.createNewEmployee(fullName, position, baseWage);
+                    allEmployees.Add(employee);
+                    return employee;
+                }
+
                 public void printList()
                 {
                     Console.WriteLine("Pełna lista pracowników:\n################################################\n");
@@ -25,6 +32,27 @@ namespace Manage_Employees_Project_KS
                         Console.WriteLine("Imię i nazwisko pracownika: " + employee.GetFullName() );
                     }
                     Console.WriteLine(" ");
+                }
+
+                public void addEmployee(Employee employee)
+                {
+                    if (!allEmployees.Contains(employee))
+                    {
+                        allEmployees.Add(employee);
+                    }
+                }
+
+                public void removeEmployee(Employee employee)
+                {
+                    if (allEmployees.Contains(employee))
+                    {
+                        allEmployees.Remove(employee);
+                    }
+                }
+
+                public Employee getEmployee(string name, string surname)
+                {
+                   return this[name, surname];
                 }
 
                 public Employee this[string name, string surname]

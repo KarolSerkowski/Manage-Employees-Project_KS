@@ -18,6 +18,17 @@ namespace Manage_Employees_Project_KS
 
                 }
 
+                public static Employee createNewEmployee(string fullName, string position, decimal baseWage)
+                {
+                    string[] name = fullName.Split(new string[] { " " }, StringSplitOptions.None);                    
+
+                    Employee newEmployee = new Employee(name[0], name[1], position);
+                    newEmployee.salary = new Employee.Wage(baseWage, 0, 0); ;
+                    return newEmployee;
+
+
+                }
+
                 public decimal getSalary()
                 {                  
                     Authorization authorization = new Authorization();

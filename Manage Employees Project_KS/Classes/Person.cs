@@ -6,10 +6,10 @@ namespace Manage_Employees_Project_KS
     {
         namespace Employees
         {
-            class Person
+            abstract class Person
             {
-                private string name { get; set; }
-                private string surname { get; set; }
+                private string name;
+                private string surname;
 
                 public Person(String name, String surname)
                 {
@@ -21,7 +21,7 @@ namespace Manage_Employees_Project_KS
                     this.name = name;
                 }
 
-                public void setSurname(string Surname)
+                public void setSurname(string surname)
                 {
                     this.surname = surname;
                 }
