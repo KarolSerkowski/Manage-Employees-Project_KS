@@ -10,6 +10,7 @@ namespace Manage_Employees_Project_KS
             {
                 private string name;
                 private string surname;
+                protected string interest;
 
                 public Person(String name, String surname)
                 {
@@ -40,6 +41,8 @@ namespace Manage_Employees_Project_KS
                 {
                     return this.surname;
                 }
+
+                public abstract string interests(string interest);
 
             }
         }

@@ -19,6 +19,11 @@ namespace Manage_Employees_Project_KS
                 {
                     this.phoneNumber = phoneNumber;
                 }
+
+                public override string interests(string interest)
+                {
+                    return base.interest = interest;
+                }
             }
 
             class Manager : Employee
@@ -71,6 +76,17 @@ namespace Manage_Employees_Project_KS
                     nowyPracownik.DisplayEmployeeInfo();
                     ListaPracownikow.createEmployeeAndAddToList("Franek Piątkiewicz", "Product Owner", 8000);
                     ListaPracownikow.printList();
+
+                    //Zad 7 operatory
+                    czlowieczek.setSalary(2000, 1000, 200);
+                    czlowieczek2.setSalary(300, 1000, 200);
+                    Console.WriteLine("Człowieczek 1 pensja: {0}, człowieczek 2 pensja: {1}", czlowieczek.getSalary(), czlowieczek2.getSalary());
+                    Console.WriteLine("Pierwszy większa pensja od drugiego {0}",  czlowieczek < czlowieczek2);
+                    Console.WriteLine(czlowieczek > czlowieczek2);
+                    Console.WriteLine(czlowieczek < czlowieczek2);
+                    Console.WriteLine(czlowieczek == czlowieczek2);
+                    Console.WriteLine(Convert.ToDouble(czlowieczek));
+                    Console.WriteLine(czlowieczek+500);
 
                     Console.ReadLine();
 

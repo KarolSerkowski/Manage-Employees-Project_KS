@@ -10,7 +10,7 @@ namespace Manage_Employees_Project_KS
             class Employee : Person
             {
                 public string Ocupation { get; set; }
-                public Wage salary;
+                public Wage salary;                
 
                 public Employee(string name, string surname, string position) : base(name, surname)
                 {
@@ -142,6 +142,97 @@ namespace Manage_Employees_Project_KS
                         return basic + bonus + other;
                     }
                 }
+
+                public override string interests(string interest)
+                {
+                    return base.interest = interest;
+                }
+
+                public static bool operator ==(Employee employee1, Employee employee2)
+                {
+                    if (employee1.getName() != employee2.getName())
+                    {                        
+                        return false;
+                    };
+
+                    if (employee1.getSurname() != employee2.getSurname())
+                    {                    
+                        return false;
+                    };
+                    return true;
+                    
+                }
+
+                public static bool operator !=(Employee employee1, Employee employee2)
+                {
+                    if (employee1.getName() == employee2.getName())
+                    {
+                        return false;
+                    };
+
+                    if (employee1.getSurname() == employee2.getSurname())
+                    {
+                        return false;
+                    };
+                    return true;
+
+                }
+
+                public static bool operator <(Employee employee1, Employee employee2)
+                {
+                    if (employee1.getSalary() > employee2.getSalary())
+                    {
+                        return false;
+                    };
+
+                    if (employee1.getSalary() == employee2.getSalary())
+                    {
+                        return false;
+                    };
+
+                    return true;
+
+                }
+
+                public static bool operator >(Employee employee1, Employee employee2)
+                {
+                    if (employee1.getSalary() < employee2.getSalary())
+                    {
+                        return false;
+                    };
+
+                    if (employee1.getSalary() == employee2.getSalary())
+                    {
+                        return false;
+                    };
+
+                    return true;
+
+                }
+
+                public static implicit operator double(Employee employee)
+                {
+                    return Convert.ToDouble(employee.salary.getSumWages());
+                }
+
+                public static double operator +(Employee employee, double liczba)
+                {
+                    double sum = Convert.ToDouble(employee.salary.getSumWages());
+
+                    return sum + liczba;
+
+                }
+
+
+                //Operatory których nie wolno przeciążać:
+
+                //logiczne warunkowe: &&, ||,
+                //konwersji: () - służą do tego słowa kluczowe explicit i implicit,
+                //indeksacji: [] - stosujemy w tym celu indeksatory,
+                //przypisań: +=, -=, *=, %=, <<=, >>=, |=, ^=, &=, /=,
+                //pozostałe: =, ., new, is, sizeof, typeof, ?:.
+
+
             }
         }
 
