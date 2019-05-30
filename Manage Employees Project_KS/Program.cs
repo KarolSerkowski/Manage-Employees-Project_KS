@@ -39,7 +39,7 @@ namespace Manage_Employees_Project_KS
             {
                 static void Main(string[] args)
                 {
-                    EmployeesList ListaPracownikow = new EmployeesList();
+                    Employees ListaPracownikow = new Employees();
                     Employee czlowieczek = new Employee("Johny", "Okoń", "Tynkarz - akrobata");
                     Employee czlowieczek2 = new Employee("Jacek", "Kapeć", "Informatyk");
                     Employee czlowieczek3 = new Employee("Władysław", "Kleszcz", "Elektronik");
@@ -87,6 +87,11 @@ namespace Manage_Employees_Project_KS
                     Console.WriteLine(czlowieczek == czlowieczek2);
                     Console.WriteLine(Convert.ToDouble(czlowieczek));
                     Console.WriteLine(czlowieczek+500);
+
+
+                    //Zad8 delegaty
+                    czlowieczek.setName("Karol");
+                    czlowieczek.setSurname("Programistowski");
 
                     Console.ReadLine();
 

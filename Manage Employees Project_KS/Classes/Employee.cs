@@ -10,12 +10,26 @@ namespace Manage_Employees_Project_KS
             class Employee : Person
             {
                 public string Ocupation { get; set; }
-                public Wage salary;                
-
+                public Wage salary;
+                
                 public Employee(string name, string surname, string position) : base(name, surname)
                 {
                     this.Ocupation = position;
 
+                }
+
+                virtual public void setName(string name )
+                {
+                    string oldName = this.name;                    
+                    this.name = name;
+                    nameOrSurnameHasBeenChanged(oldName, name, "imię");
+                }
+
+                virtual public void setSurname(string surname)
+                {
+                    string oldSurname = this.surname;
+                    this.surname = surname;
+                    nameOrSurnameHasBeenChanged(oldSurname, surname, "nazwisko");
                 }
 
                 public static Employee createNewEmployee(string fullName, string position, decimal baseWage)
@@ -25,7 +39,6 @@ namespace Manage_Employees_Project_KS
                     Employee newEmployee = new Employee(name[0], name[1], position);
                     newEmployee.salary = new Employee.Wage(baseWage, 0, 0); ;
                     return newEmployee;
-
 
                 }
 
@@ -233,6 +246,19 @@ namespace Manage_Employees_Project_KS
                 //pozostałe: =, ., new, is, sizeof, typeof, ?:.
 
 
+
+                    // delegaty - func
+                 public static string messageAfterNameOrSurnameChanged(string oldData, string newData, string typeData)
+                {
+                    string textMessage = typeData+" zostało zmienione:\n stare "+typeData +": " + oldData + ",\n nowe "+typeData+": " + newData;
+                    Console.WriteLine(textMessage);
+                    return textMessage;
+                }
+
+                Func<string, string, string, string> nameOrSurnameHasBeenChanged = messageAfterNameOrSurnameChanged;
+
+                
+                
             }
         }
 

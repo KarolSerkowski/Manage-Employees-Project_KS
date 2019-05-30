@@ -8,8 +8,8 @@ namespace Manage_Employees_Project_KS
         {
             abstract class Person
             {
-                private string name;
-                private string surname;
+                protected string name;
+                protected string surname;
                 protected string interest;
 
                 public Person(String name, String surname)

@@ -7,7 +7,7 @@ namespace Manage_Employees_Project_KS
     {
         namespace Employees
         {
-            class EmployeesList
+            class Employees
             {
                 public List<Employee> allEmployees = new List<Employee>();
                 
