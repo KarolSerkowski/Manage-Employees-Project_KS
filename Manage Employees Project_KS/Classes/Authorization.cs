@@ -11,16 +11,19 @@ namespace Manage_Employees_Project_KS
                 private string password;
                 private string login;
                 private static bool isLogged = false;
-                public Authorization()
+                public static int loginAttemptNumber { get; } = 0;
+              
+
+                public void displayFieldsToLogin()
                 {
-                    if(isLogged != true)
+                    if (isLogged != true)
                     {
                         displaySecurityMessage tryLogin = new displaySecurityMessage();
                         login = tryLogin.getLogin();
                         password = tryLogin.getPassword();
-                    }                      
-                    
+                    }
                 }
+
 
                 public bool checkAuthorization()
                 {
@@ -38,6 +41,31 @@ namespace Manage_Employees_Project_KS
                 {
                     isLogged = false;
                     Console.WriteLine("Nastąpiło wylogowanie");
+                }
+            }
+
+            class displaySecurityMessage
+            {
+                private string login;
+                private string password;
+
+                public displaySecurityMessage()
+                {
+                    Console.WriteLine("Aby wyświetlić informacje o zarobkach lub dokonać zmian w wartościach wypłaty zaloguj się:\n Wprowadź login:");
+                    login = Console.ReadLine();
+                    Console.WriteLine("wporwadź hasło:");
+                    password = Console.ReadLine();
+
+                }
+
+                public string getLogin()
+                {
+                    return login;
+                }
+
+                public string getPassword()
+                {
+                    return password;
                 }
             }
         }

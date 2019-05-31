@@ -52,9 +52,10 @@ namespace Manage_Employees_Project_KS
 
                     //indeksatory
                     Employee searchEmployee = ListaPracownikow["Johny","Okoń"];
+                    Employee searchEmployee2 = ListaPracownikow["Johny","Okoński"];
 
                     ListaPracownikow.printList();
-                    czlowieczek.contractType = Employee.ContractTypes.fullTime;
+                    czlowieczek.ContractType = Employee.ContractTypes.fullTime;
                     czlowieczek.salary = new Employee.Wage(3000, 250, 0);
                     czlowieczek.Operations.Add(new Operation("Wypłata 01/2019", "Płatność", czlowieczek.salary.getSumWages()));
                     
@@ -95,8 +96,13 @@ namespace Manage_Employees_Project_KS
 
                     //Zdarzenia                    
                     czlowieczek.setSalary(5450, 100, 299);
-                    Console.WriteLine(czlowieczek.contractType);
+                    Console.WriteLine(czlowieczek.ContractType);
                     czlowieczek.ContractType = Employee.ContractTypes.partTime;
+
+                    //Lambda i LINQ
+
+                    ListaPracownikow.sortByNameAndSurname();
+
 
 
                     Console.ReadLine();

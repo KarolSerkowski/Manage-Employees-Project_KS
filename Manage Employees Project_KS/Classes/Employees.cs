@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Manage_Employees_Project_KS
 {
@@ -9,6 +10,8 @@ namespace Manage_Employees_Project_KS
         {
             class Employees
             {
+                             
+
                 public List<Employee> allEmployees = new List<Employee>();
                 
                 public void addToList(Employee newEmployee)
@@ -26,12 +29,7 @@ namespace Manage_Employees_Project_KS
 
                 public void printList()
                 {
-                    Console.WriteLine("Pełna lista pracowników:\n################################################\n");
-                    foreach (Employee employee in allEmployees)
-                    {                        
-                        Console.WriteLine("Imię i nazwisko pracownika: " + employee.GetFullName() );
-                    }
-                    Console.WriteLine(" ");
+                    Messages.displayAllEmployeesFromList(allEmployees, "wszystkich");                      
                 }
 
                 public void addEmployee(Employee employee)
@@ -58,23 +56,31 @@ namespace Manage_Employees_Project_KS
                 public Employee this[string name, string surname]
                 {
                     get
-                    {                        
+                    {
+                        bool searchSuccessful = false;
                         foreach (Employee employee in allEmployees)
                         {
                             if (employee.getName() == name && employee.getSurname() == surname)
-                            {
-                                Console.WriteLine("Znaleziono pracownika:\n Imię: {0}\n Nazwisko: {1}", employee.getName(), employee.getSurname());
+                            {                              
+                                Messages.searchEmployeeByNameAndSurnameMessage(employee.getName(), employee.getSurname(), true);
+                                searchSuccessful = true;
                                 return employee;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Nie znaleziono takiego pracownika:" + name + " " + surname);
-                                
-                            }                            
+                            }                                                      
+                        }
+                        if (searchSuccessful == false)
+                        {
+                            Messages.searchEmployeeByNameAndSurnameMessage(name, surname, false);
                         }
                         return null;
                     }
                     
+                }
+
+                public void sortByNameAndSurname()
+                {
+                    var SelectedEmployees = allEmployees.OrderBy(Employee => Employee.getName());
+                    Console.WriteLine(SelectedEmployees);
+                    //Messages.displayAllEmployeesFromList(SelectedEmployees, "posortowanych");
                 }
             }
         }

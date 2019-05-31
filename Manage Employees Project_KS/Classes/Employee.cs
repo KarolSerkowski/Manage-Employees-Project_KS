@@ -15,9 +15,8 @@ namespace Manage_Employees_Project_KS
                 public Employee(string name, string surname, string position) : base(name, surname)
                 {
                     this.Ocupation = position;
-                   
-                    wageChanged += messageAfterWageChanged;
-                    contractTypeChanged += messageAfterContractTypeChanged;
+                    wageChanged += Messages.messageAfterWageChanged;
+                    contractTypeChanged += Messages.messageAfterContractTypeChanged;
 
                 }
 
@@ -25,14 +24,21 @@ namespace Manage_Employees_Project_KS
                 {
                     string oldName = this.name;                    
                     this.name = name;
-                    nameOrSurnameHasBeenChanged(oldName, name, "imię");
+                    if (oldName != name)
+                    {
+                        nameOrSurnameHasBeenChanged(oldName, name, "imię");
+                    }                    
                 }
 
                 virtual public void setSurname(string surname)
                 {
                     string oldSurname = this.surname;
                     this.surname = surname;
-                    nameOrSurnameHasBeenChanged(oldSurname, surname, "nazwisko");
+
+                    if (oldSurname != surname)
+                    {
+                        nameOrSurnameHasBeenChanged(oldSurname, surname, "nazwisko");
+                    }                    
                 }
 
                 public static Employee createNewEmployee(string fullName, string position, decimal baseWage)
@@ -46,29 +52,38 @@ namespace Manage_Employees_Project_KS
                 }
 
                 public decimal getSalary()
-                {                  
+                {
                     Authorization authorization = new Authorization();
+                    if(Authorization.loginAttemptNumber == 0)
+                    {
+                        authorization.displayFieldsToLogin();
+                    }
 
                     if (authorization.checkAuthorization() == true)
                     {
-                        Console.WriteLine("Logowanie poprawne.\n###############################################################################\n");
+                        Messages.autorizationMessage(true);
                         Console.WriteLine("Pensja podstawowa wynosi: {0}, aktualne premie: {1}, inne dodatki do pensji: {2}\nSuma zarobków wynosi: {3}", salary.basic, salary.bonus, salary.other, salary.getSumWages());
                         return salary.getSumWages();
                     }
                     else
                     {
-                        Console.WriteLine("Błędne logowanie");
+                        Messages.autorizationMessage(false);
+                        authorization.checkAuthorization();
                         return 0;
                     }                    
                 }
 
                 public void setSalary(decimal basic, decimal bonus, decimal other)
-                {                    
+                {
                     Authorization authorization = new Authorization();
+                    if (Authorization.loginAttemptNumber == 0)
+                    {
+                        authorization.displayFieldsToLogin();
+                    }
 
                     if (authorization.checkAuthorization()== true)
                     {
-                        Console.WriteLine("Logowanie poprawne.\n###############################################################################\n");
+                        Messages.autorizationMessage(true);
                         decimal oldBasicWage = salary.basic;
                         salary.basic = basic;
                         
@@ -80,8 +95,9 @@ namespace Manage_Employees_Project_KS
                         Console.WriteLine("Wprowadzono wartości:\nPensja podstawowa: {0}\nPremie: {1}\nInne: {2}", salary.basic, salary.bonus, salary.other);
                     }
                     else
-                    {
-                        Console.WriteLine("Błędne logowanie");                        
+                    {                        
+                        Messages.autorizationMessage(false);
+                        authorization.checkAuthorization();
                     }
                 }                
 
@@ -111,14 +127,18 @@ namespace Manage_Employees_Project_KS
                 public ContractTypes ContractType
                 {
                     get
-                    { getContractName(contractType);
+                    { 
                         return contractType;
                     }
                     set
                     {
                         ContractTypes oldContractType = contractType;
                         contractType = value;
-                        OnContractChanged(oldContractType, contractType);
+                        if (oldContractType != contractType)
+                        {
+                            OnContractChanged(oldContractType, contractType);
+                        }
+                        
                     }
                 }
 
@@ -265,15 +285,8 @@ namespace Manage_Employees_Project_KS
 
 
 
-                 // delegaty - func
-                 public static string messageAfterNameOrSurnameChanged(string oldData, string newData, string typeData)
-                {
-                    string textMessage = typeData+" zostało zmienione:\n stare "+typeData +": " + oldData + ",\n nowe "+typeData+": " + newData;
-                    Console.WriteLine(textMessage);
-                    return textMessage;
-                }
-                
-                Func<string, string, string, string> nameOrSurnameHasBeenChanged = messageAfterNameOrSurnameChanged;
+                // delegaty - func
+                Func<string, string, string, string> nameOrSurnameHasBeenChanged = Messages.messageAfterNameOrSurnameChanged;
 
 
                 // zdarzenia
@@ -292,13 +305,6 @@ namespace Manage_Employees_Project_KS
                     wageChanged(this, new WageEventArgs() { oldWage = oldWage, newWage = newWage });
                 }
 
-                public static void messageAfterWageChanged(object source, WageEventArgs args)
-                {
-                    string textMessage = " Pensja została zmieniona:\n stara pensja: " + args.oldWage + ",\n nowa pesja " + args.newWage;
-                    Console.WriteLine(textMessage);
-
-                }
-
                 public class ContractEventArgs : EventArgs
                 {
                     public ContractTypes oldContract { get; set; }
@@ -311,16 +317,7 @@ namespace Manage_Employees_Project_KS
                     if (contractTypeChanged != null)
                         contractTypeChanged(this, new ContractEventArgs() { oldContract = oldContract, newContract = newContract });
                 }
-
-                public static void messageAfterContractTypeChanged(object source, ContractEventArgs args)
-                {
-                    string textMessage = " Forma zatrudnienia została zmieniona:\n stara forma zatrudnienia: " + args.oldContract + ",\n nowa forma zatrudnienia " + args.newContract;
-                    Console.WriteLine(textMessage);
-
-                }
-
-
-
+  
             }
         }
 
