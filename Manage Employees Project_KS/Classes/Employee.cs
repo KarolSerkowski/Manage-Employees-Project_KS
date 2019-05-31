@@ -16,6 +16,9 @@ namespace Manage_Employees_Project_KS
                 {
                     this.Ocupation = position;
 
+                    changeWage += messageAfterWageChanged2;
+                    wageChanged += messageAfterWageChanged;
+
                 }
 
                 virtual public void setName(string name )
@@ -66,7 +69,11 @@ namespace Manage_Employees_Project_KS
                     if (authorization.checkAuthorization()== true)
                     {
                         Console.WriteLine("Logowanie poprawne.\n###############################################################################\n");
+                        decimal oldBasicWage = salary.basic;
                         salary.basic = basic;
+                        changeWage(oldBasicWage, basic);
+                        OnWageChanged(oldBasicWage, basic);
+
                         salary.bonus = bonus;
                         salary.other = other;
 
@@ -254,11 +261,59 @@ namespace Manage_Employees_Project_KS
                     Console.WriteLine(textMessage);
                     return textMessage;
                 }
-
+                
                 Func<string, string, string, string> nameOrSurnameHasBeenChanged = messageAfterNameOrSurnameChanged;
 
+
+                // zdarzenia
+
+                public delegate void ChangedWage(decimal oldWage, decimal newWage);
+                public event ChangedWage changeWage;
+
                 
-                
+
+                public static void messageAfterWageChanged2(decimal oldWage, decimal newWage)
+                {
+                    string textMessage = " Pensja została zmieniona:\n stara pensja: " + oldWage + ",\n nowa pesja " +newWage;
+                    Console.WriteLine(textMessage);
+                    
+                }
+
+                public class WageEventArgs: EventArgs
+                {
+                    public decimal oldWage { get; set; }
+                    public decimal newWage { get; set; }
+                }
+
+
+                public event EventHandler<WageEventArgs> wageChanged;
+
+                public async void OnWageChanged(decimal oldWage, decimal newWage)
+                {
+                    if (wageChanged != null)
+                    wageChanged(this, new WageEventArgs() { oldWage = oldWage, newWage = newWage });
+                }
+
+                public static void messageAfterWageChanged(object source, WageEventArgs args)
+                {
+                    string textMessage = " Pensja została zmieniona:\n stara pensja: " + args.oldWage + ",\n nowa pesja " + args.newWage;
+                    Console.WriteLine(textMessage);
+
+                }
+                //public event EventHandler<WageEventArgs> changeWage;                           
+
+                //protected virtual void onChangeWage(Employee editEmployee)
+                //{
+                //    if (changeWage != null)
+                //        changeWage(this,new WageEventArgs(){ employee = editEmployee);
+                //}
+
+                //public class WageEventArgs: EventArgs
+                //{
+                //    public Employee employee;
+                //}
+
+
             }
         }
 

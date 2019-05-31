@@ -77,7 +77,7 @@ namespace Manage_Employees_Project_KS
                     ListaPracownikow.createEmployeeAndAddToList("Franek Piątkiewicz", "Product Owner", 8000);
                     ListaPracownikow.printList();
 
-                    //Zad 7 operatory
+                    //operatory
                     czlowieczek.setSalary(2000, 1000, 200);
                     czlowieczek2.setSalary(300, 1000, 200);
                     Console.WriteLine("Człowieczek 1 pensja: {0}, człowieczek 2 pensja: {1}", czlowieczek.getSalary(), czlowieczek2.getSalary());
@@ -89,9 +89,13 @@ namespace Manage_Employees_Project_KS
                     Console.WriteLine(czlowieczek+500);
 
 
-                    //Zad8 delegaty
+                    //delegaty
                     czlowieczek.setName("Karol");
                     czlowieczek.setSurname("Programistowski");
+
+                    //Zdarzenia                    
+                    czlowieczek.setSalary(5450, 100, 299);
+
 
                     Console.ReadLine();
 
