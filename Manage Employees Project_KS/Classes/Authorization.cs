@@ -18,7 +18,7 @@ namespace Manage_Employees_Project_KS
                 {
                     if (isLogged != true)
                     {
-                        displaySecurityMessage tryLogin = new displaySecurityMessage();
+                        LoginForm tryLogin = new LoginForm();
                         login = tryLogin.getLogin();
                         password = tryLogin.getPassword();
                     }
@@ -27,29 +27,42 @@ namespace Manage_Employees_Project_KS
 
                 public bool checkAuthorization()
                 {
+                    if (Authorization.loginAttemptNumber == 0)
+                    {
+                        displayFieldsToLogin();
+                    }
+
                     if (this.login == "admin" && this.password == "admin"|| isLogged == true)
                     {
+                        if (isLogged == false)
+                        {
+                            Messages.autorizationMessage(true);
+                        }
                         isLogged = true;
                         return true;
                     }
-                      
+
                     else
-                    return false;
+                    {
+                        Messages.autorizationMessage(false);
+                        return false;
+                    }
+                    
                 }
 
-                public void logout()
+                public static void logout()
                 {
                     isLogged = false;
                     Console.WriteLine("Nastąpiło wylogowanie");
                 }
             }
 
-            class displaySecurityMessage
+            class LoginForm
             {
                 private string login;
                 private string password;
 
-                public displaySecurityMessage()
+                public LoginForm()
                 {
                     Console.WriteLine("Aby wyświetlić informacje o zarobkach lub dokonać zmian w wartościach wypłaty zaloguj się:\n Wprowadź login:");
                     login = Console.ReadLine();

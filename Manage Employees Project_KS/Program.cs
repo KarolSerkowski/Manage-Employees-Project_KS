@@ -79,14 +79,17 @@ namespace Manage_Employees_Project_KS
                     ListaPracownikow.printList();
 
                     //operatory
-                    czlowieczek.setSalary(2000, 1000, 200);
+                    czlowieczek.setSalary(2000, 1000, 200);                    
                     czlowieczek2.setSalary(300, 1000, 200);
+                    czlowieczek.detailsAboutWages();
                     Console.WriteLine("Człowieczek 1 pensja: {0}, człowieczek 2 pensja: {1}", czlowieczek.getSalary(), czlowieczek2.getSalary());
-                    Console.WriteLine("Pierwszy większa pensja od drugiego {0}",  czlowieczek < czlowieczek2);
-                    Console.WriteLine(czlowieczek > czlowieczek2);
-                    Console.WriteLine(czlowieczek < czlowieczek2);
+                    Console.WriteLine("Pierwszy większa pensja od drugiego- {0}",  czlowieczek > czlowieczek2);
+                    Console.WriteLine("Pierwszy mniejsza pensja od drugiego- {0}", czlowieczek < czlowieczek2);
+                    Console.WriteLine("Porównanie Imion i nazwisk: ");
                     Console.WriteLine(czlowieczek == czlowieczek2);
+                    Console.WriteLine("Wysokość pensji");
                     Console.WriteLine(Convert.ToDouble(czlowieczek));
+                    Console.WriteLine("Dodanie do pensji 500zł");
                     Console.WriteLine(czlowieczek+500);
 
 
@@ -102,9 +105,13 @@ namespace Manage_Employees_Project_KS
                     //Lambda i LINQ
 
                     ListaPracownikow.sortByNameAndSurname();
+                    ListaPracownikow.displayEmployeeWhereSurnameBeginAtLetterP();
+                    ListaPracownikow.displayEmployeeWhereSalaryIsGreaterThanLimit(5000);
+                    ListaPracownikow.displaySumWageForEveryEmployee();
+                    ListaPracownikow.displaySortedSumWageForEveryEmployee();
 
 
-
+                    Authorization.logout();
                     Console.ReadLine();
 
 

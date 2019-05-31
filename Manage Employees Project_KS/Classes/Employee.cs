@@ -53,37 +53,30 @@ namespace Manage_Employees_Project_KS
 
                 public decimal getSalary()
                 {
-                    Authorization authorization = new Authorization();
-                    if(Authorization.loginAttemptNumber == 0)
-                    {
-                        authorization.displayFieldsToLogin();
-                    }
+                    Authorization authorization = new Authorization();                    
 
                     if (authorization.checkAuthorization() == true)
-                    {
-                        Messages.autorizationMessage(true);
-                        Console.WriteLine("Pensja podstawowa wynosi: {0}, aktualne premie: {1}, inne dodatki do pensji: {2}\nSuma zarobków wynosi: {3}", salary.basic, salary.bonus, salary.other, salary.getSumWages());
+                    {                        
                         return salary.getSumWages();
                     }
                     else
                     {
-                        Messages.autorizationMessage(false);
-                        authorization.checkAuthorization();
+                        authorization.displayFieldsToLogin();
                         return 0;
                     }                    
                 }
 
+                public void detailsAboutWages()
+                {
+                    Messages.displayDetailsAboutWages(this);
+                }
+
                 public void setSalary(decimal basic, decimal bonus, decimal other)
                 {
-                    Authorization authorization = new Authorization();
-                    if (Authorization.loginAttemptNumber == 0)
-                    {
-                        authorization.displayFieldsToLogin();
-                    }
+                    Authorization authorization = new Authorization();                    
 
                     if (authorization.checkAuthorization()== true)
-                    {
-                        Messages.autorizationMessage(true);
+                    {                        
                         decimal oldBasicWage = salary.basic;
                         salary.basic = basic;
                         
@@ -95,9 +88,8 @@ namespace Manage_Employees_Project_KS
                         Console.WriteLine("Wprowadzono wartości:\nPensja podstawowa: {0}\nPremie: {1}\nInne: {2}", salary.basic, salary.bonus, salary.other);
                     }
                     else
-                    {                        
-                        Messages.autorizationMessage(false);
-                        authorization.checkAuthorization();
+                    {
+                        authorization.displayFieldsToLogin();
                     }
                 }                
 
@@ -166,14 +158,9 @@ namespace Manage_Employees_Project_KS
                     Console.WriteLine("Lista operacji dla {0}", this.GetFullName());
                     foreach (Operation operation in Operations)
                     {
-                        printOperationInfo(operation);
+                        Messages.printOperationInfo(operation);
                     }
-                }
-
-                public void printOperationInfo(Operation operation)
-                {
-                    Console.WriteLine("Transakcja o tytule: {0}\n typ transakcji: {1}\n kwota transakcji: {2}\n\n", operation.title, operation.type, operation.amount);
-                }
+                }                
               
                 public struct Wage
                 {

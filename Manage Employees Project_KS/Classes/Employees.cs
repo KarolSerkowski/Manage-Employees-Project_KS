@@ -77,11 +77,46 @@ namespace Manage_Employees_Project_KS
                 }
 
                 public void sortByNameAndSurname()
-                {
-                    var SelectedEmployees = allEmployees.OrderBy(Employee => Employee.getName());
-                    Console.WriteLine(SelectedEmployees);
-                    //Messages.displayAllEmployeesFromList(SelectedEmployees, "posortowanych");
+                {                   
+                    IEnumerable<Employee> sortedEmployees = allEmployees.OrderBy(employee => employee.getSurname()).ThenBy(employee=>employee.getName());
+
+                    //foreach (Employee  employee in sortedEmployees)
+                    //{
+                    //    Console.WriteLine("{0} - {1}", employee.getName(), employee.getSurname());
+                    //}
+
+                    List<Employee> sortedEmployeeList = sortedEmployees.ToList();
+                    Messages.displayAllEmployeesFromList(sortedEmployeeList, "posortowanych");
                 }
+
+                public void displayEmployeeWhereSurnameBeginAtLetterP()
+                {
+                    IEnumerable<Employee> sortedEmployees = allEmployees.Where(employee => employee.getSurname().StartsWith("P"));
+                    List<Employee> sortedEmployeeList = sortedEmployees.ToList();
+                    Messages.displayAllEmployeesFromList(sortedEmployeeList, "posortowanych");
+                }
+
+                public void displayEmployeeWhereSalaryIsGreaterThanLimit(decimal salaryLimit)
+                {
+                    IEnumerable<Employee> sortedEmployees = allEmployees.Where(employee => employee.getSalary() > salaryLimit);
+                    List<Employee> sortedEmployeeList = sortedEmployees.ToList();
+                    Messages.displayAllEmployeesFromList(sortedEmployeeList, "posortowanych");
+                }
+
+                public void displaySumWageForEveryEmployee()
+                {
+                    IEnumerable<Employee> sortedEmployees = allEmployees;
+                    List<Employee> sortedEmployeeList = sortedEmployees.ToList();
+                    Messages.displayAllEmployeesWithWage(sortedEmployeeList);
+                }
+
+                public void displaySortedSumWageForEveryEmployee()
+                {
+                    IEnumerable<Employee> sortedEmployees = allEmployees.OrderByDescending(employee =>employee.getSalary());
+                    List<Employee> sortedEmployeeList = sortedEmployees.ToList();
+                    Messages.displayAllEmployeesWithWage(sortedEmployeeList);
+                }
+
             }
         }
 
