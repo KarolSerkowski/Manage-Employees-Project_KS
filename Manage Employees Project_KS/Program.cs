@@ -95,6 +95,8 @@ namespace Manage_Employees_Project_KS
 
                     //Zdarzenia                    
                     czlowieczek.setSalary(5450, 100, 299);
+                    Console.WriteLine(czlowieczek.contractType);
+                    czlowieczek.ContractType = Employee.ContractTypes.partTime;
 
 
                     Console.ReadLine();

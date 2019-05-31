@@ -15,9 +15,9 @@ namespace Manage_Employees_Project_KS
                 public Employee(string name, string surname, string position) : base(name, surname)
                 {
                     this.Ocupation = position;
-
-                    changeWage += messageAfterWageChanged2;
+                   
                     wageChanged += messageAfterWageChanged;
+                    contractTypeChanged += messageAfterContractTypeChanged;
 
                 }
 
@@ -71,7 +71,7 @@ namespace Manage_Employees_Project_KS
                         Console.WriteLine("Logowanie poprawne.\n###############################################################################\n");
                         decimal oldBasicWage = salary.basic;
                         salary.basic = basic;
-                        changeWage(oldBasicWage, basic);
+                        
                         OnWageChanged(oldBasicWage, basic);
 
                         salary.bonus = bonus;
@@ -83,12 +83,46 @@ namespace Manage_Employees_Project_KS
                     {
                         Console.WriteLine("Błędne logowanie");                        
                     }
-                }
-                
+                }                
 
+                public enum ContractTypes
+                {
+                    fullTime,
+                    partTime,
+                    contract
+                }
+
+                public string getContractName(ContractTypes contract)
+                {
+                    switch (contract)
+                    {
+                        case ContractTypes.contract:
+                            return "Kontrakt";
+                        case ContractTypes.fullTime:
+                            return "Pełen etat";
+                        case ContractTypes.partTime:
+                            return "Niepełny etat";
+                        default:
+                            return "Błędnie wprowadzona informacja o zatrudnieniu";
+
+                    }
+                }
+                private ContractTypes contractType;                
+                public ContractTypes ContractType
+                {
+                    get
+                    { getContractName(contractType);
+                        return contractType;
+                    }
+                    set
+                    {
+                        ContractTypes oldContractType = contractType;
+                        contractType = value;
+                        OnContractChanged(oldContractType, contractType);
+                    }
+                }
 
                 public static decimal HolidayBonus { get; set; } = 1000;
-                public ContractTypes contractType { get; set; }
 
                 public void setHolidayBonus(decimal newBonus)
                 {
@@ -120,30 +154,7 @@ namespace Manage_Employees_Project_KS
                 {
                     Console.WriteLine("Transakcja o tytule: {0}\n typ transakcji: {1}\n kwota transakcji: {2}\n\n", operation.title, operation.type, operation.amount);
                 }
-
-                public enum ContractTypes
-                {
-                    fullTime,
-                    partTime,
-                    contract
-                }
-
-                public string getContractName(ContractTypes contract)
-                {
-                    switch (contract)
-                    {
-                        case ContractTypes.contract:
-                            return "Kontrakt";
-                        case ContractTypes.fullTime:
-                            return "Pełen etat";
-                        case ContractTypes.partTime:
-                            return "Niepełny etat";
-                        default:
-                            return "Błędnie wprowadzona informacja o zatrudnieniu";
-
-                    }
-                }
-
+              
                 public struct Wage
                 {
                     public decimal basic { get; set; }
@@ -254,7 +265,7 @@ namespace Manage_Employees_Project_KS
 
 
 
-                    // delegaty - func
+                 // delegaty - func
                  public static string messageAfterNameOrSurnameChanged(string oldData, string newData, string typeData)
                 {
                     string textMessage = typeData+" zostało zmienione:\n stare "+typeData +": " + oldData + ",\n nowe "+typeData+": " + newData;
@@ -266,25 +277,12 @@ namespace Manage_Employees_Project_KS
 
 
                 // zdarzenia
-
-                public delegate void ChangedWage(decimal oldWage, decimal newWage);
-                public event ChangedWage changeWage;
-
-                
-
-                public static void messageAfterWageChanged2(decimal oldWage, decimal newWage)
-                {
-                    string textMessage = " Pensja została zmieniona:\n stara pensja: " + oldWage + ",\n nowa pesja " +newWage;
-                    Console.WriteLine(textMessage);
-                    
-                }
-
+               
                 public class WageEventArgs: EventArgs
                 {
                     public decimal oldWage { get; set; }
                     public decimal newWage { get; set; }
                 }
-
 
                 public event EventHandler<WageEventArgs> wageChanged;
 
@@ -300,18 +298,27 @@ namespace Manage_Employees_Project_KS
                     Console.WriteLine(textMessage);
 
                 }
-                //public event EventHandler<WageEventArgs> changeWage;                           
 
-                //protected virtual void onChangeWage(Employee editEmployee)
-                //{
-                //    if (changeWage != null)
-                //        changeWage(this,new WageEventArgs(){ employee = editEmployee);
-                //}
+                public class ContractEventArgs : EventArgs
+                {
+                    public ContractTypes oldContract { get; set; }
+                    public ContractTypes newContract { get; set; }
+                }
+                public event EventHandler<ContractEventArgs> contractTypeChanged;
 
-                //public class WageEventArgs: EventArgs
-                //{
-                //    public Employee employee;
-                //}
+                public async void OnContractChanged(ContractTypes oldContract, ContractTypes newContract)
+                {
+                    if (contractTypeChanged != null)
+                        contractTypeChanged(this, new ContractEventArgs() { oldContract = oldContract, newContract = newContract });
+                }
+
+                public static void messageAfterContractTypeChanged(object source, ContractEventArgs args)
+                {
+                    string textMessage = " Forma zatrudnienia została zmieniona:\n stara forma zatrudnienia: " + args.oldContract + ",\n nowa forma zatrudnienia " + args.newContract;
+                    Console.WriteLine(textMessage);
+
+                }
+
 
 
             }
